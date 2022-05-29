@@ -1,10 +1,9 @@
 from django import forms
-from django.forms import ModelForm
+#from django.forms import ModelForm
 from .models import Meeting
 
 
-class MeetingForm(ModelForm):
-    minutes = forms.CharField(required=False)
+class MeetingForm(forms.ModelForm):
     attachments = forms.FileField(required=False)
 
     class Meta:
@@ -15,7 +14,7 @@ class MeetingForm(ModelForm):
           'agenda': forms.TextInput( attrs={ 'class':'form-control'}),
           'venue': forms.TextInput( attrs={ 'class':'form-control'}),
           'guests': forms.TextInput( attrs={ 'class':'form-control'}),
-          #'minutes'=forms.CharField(widget=forms.Textarea(attrs={'class':'comment','title':'add comment'}))
+          'minutes': forms.Textarea( attrs={ 'class':'form-control'}),
           'start_time': forms.DateTimeInput(format='%Y-%m-%dT%H:%M:%S', attrs={'type': 'datetime-local', 'class':'form-control'}),
           'end_time': forms.DateTimeInput(format='%Y-%m-%dT%H:%M:%S', attrs={'type': 'datetime-local', 'class':'form-control'}),
         }
