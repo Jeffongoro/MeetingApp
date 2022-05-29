@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if meetings|length > 0 %}
+        <h2 style="text-align: center">Upcoming Meetings</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr class="table table-striped">
+              <th scope="col">Meeting ID</th>
+              <th scope="col">Title</th>
+              <th scope="col">Agenda</th>
+              <th scope="col">Venue</th>
+              <th scope="col">Guests</th>
+              <th scope="col">Start Time</th>
+              <th scope="col">End Time</th>
+              <th scope="col">Minutes</th>
+              <th scope="col">Attachments</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for meeting in meetings %}
+            <tr>
+              <td class="table table-striped">{{meeting.pk}}</td>
+              <td class="table table-striped">{{meeting.title}}</td>
+              <td class="table table-striped">{{meeting.agenda}}</td>
+              <td class="table table-striped">{{meeting.venue}}</td>
+              <td class="table table-striped">{{meeting.guests}}</td>
+              <td class="table table-striped">{{meeting.start_time}}</td>
+              <td class="table table-striped">{{meeting.end_time}}</td>
+              <td class="table table-striped">{{meeting.minutes}}</td>
+              {% if meeting.attachments %}
+                  <td class="table table-striped">
+                      <a href="{{ MEDIA_URL }}{{meeting.attachments}}" download>{{meeting.attachments}}</a>
+                  </td>
+              {% else %}
+                <td class="table table-striped">{{meeting.attachments}}</td>
+              {% endif %}
+              <td class="table table-striped">
+                  <a href="/meeting/update/{{meeting.pk}}">Update Meeting</a>
+              </td>
+              <td class="table table-striped">
+                  <a href="/meeting/delete/{{meeting.pk}}">Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    {% else %}
+        <h2 style="text-align: center">No upcoming meetings</h2>
+    {% endif%}
+{% endblock content %}
